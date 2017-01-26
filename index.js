@@ -15,7 +15,7 @@ module.exports = {
     if (emberVersion.lt('2.12.0-beta.1')) {
       this.import('vendor/ember-factory-for-polyfill/index.js');
     } else if (this.parent === this.project && !hasBeenWarned){
-      console.warn('ember-factory-for-polyfill is not required for Ember 2.12.0 and later, please remove from your `package.json`.');
+      this.ui.writeWarnLine('ember-factory-for-polyfill is not required for Ember 2.12.0 and later, please remove from your `package.json`.');
       hasBeenWarned = true;
     }
   },
