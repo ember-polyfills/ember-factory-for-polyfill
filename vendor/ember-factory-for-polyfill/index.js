@@ -46,19 +46,17 @@
     }
   });
 
-  function wrapManagerInDeprecationProxy(manager) {
-    if (HAS_NATIVE_PROXY) {
-
-    }
-
-    return manager;
+  // added in Ember 2.8
+  if (Ember.ApplicationInstance) {
+    // augment the main application's "owner"
+    Ember.ApplicationInstance.reopen(FactoryForMixin);
   }
 
-  // augment the main application's "owner"
-  Ember.ApplicationInstance.reopen(FactoryForMixin);
-
-  // supports ember-test-helpers's build-registry (and other tooling that use
-  // Ember._ContainerProxyMixin to emulate an "owner")
-  var ContainerProxyMixinWithFactoryFor = Ember.Mixin.create(Ember._ContainerProxyMixin, FactoryForMixin);
-  Ember._ContainerProxyMixin = ContainerProxyMixinWithFactoryFor;
+  // added in Ember 2.3
+  if (Ember._ContainerProxyMixin) {
+    // supports ember-test-helpers's build-registry (and other tooling that use
+    // Ember._ContainerProxyMixin to emulate an "owner")
+    var ContainerProxyMixinWithFactoryFor = Ember.Mixin.create(Ember._ContainerProxyMixin, FactoryForMixin);
+    Ember._ContainerProxyMixin = ContainerProxyMixinWithFactoryFor;
+  }
 })();
