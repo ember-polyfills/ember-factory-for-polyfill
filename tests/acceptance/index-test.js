@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 
@@ -9,19 +10,19 @@ const {
 
 moduleForAcceptance('factoryFor | application', {
   beforeEach() {
+    let testContext = this;
+
     this.AppleFactory = EmberObject.extend();
 
-    this.register('fruit:apple', this.AppleFactory);
-    let owner;
-    this.register('route:application', Route.extend({
+    this.application.register('fruit:apple', this.AppleFactory);
+    this.application.register('route:application', Route.extend({
       init() {
         this._super();
-        owner = getOwner(this);
+        testContext.owner = getOwner(this);
       }
     }));
 
-    this.owner = owner;
-    visit('/');
+    return visit('/');
   }
 });
 
