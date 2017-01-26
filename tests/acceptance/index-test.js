@@ -1,20 +1,33 @@
 import Ember from 'ember';
-import { moduleFor, test } from 'ember-qunit';
+import { test } from 'qunit';
+import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 
-const { getOwner, Object: EmberObject } = Ember;
+const {
+  getOwner,
+  Route,
+  Object: EmberObject
+} = Ember;
 
-moduleFor('owner.factoryFor tests', {
-  integration: true,
-
+moduleForAcceptance('factoryFor | application', {
   beforeEach() {
+    let testContext = this;
+
     this.AppleFactory = EmberObject.extend();
 
-    this.register('fruit:apple', this.AppleFactory);
+    this.application.register('fruit:apple', this.AppleFactory);
+    this.application.register('route:application', Route.extend({
+      init() {
+        this._super();
+        testContext.owner = getOwner(this);
+      }
+    }));
+
+    return visit('/');
   }
 });
 
 test('factoryFor + .create results in objects with `owner`', function(assert) {
-  let owner = getOwner(this);
+  let { owner } = this;
   let Factory = owner.factoryFor('fruit:apple');
   let instance = Factory.create();
 
@@ -22,7 +35,7 @@ test('factoryFor + .create results in objects with `owner`', function(assert) {
 });
 
 test('factoryFor exposes "raw" .class`', function(assert) {
-  let owner = getOwner(this);
+  let { owner } = this;
   let Factory = owner.factoryFor('fruit:apple');
   let instance = Factory.class.create();
 
@@ -31,7 +44,7 @@ test('factoryFor exposes "raw" .class`', function(assert) {
 
 if (typeof Proxy !== 'undefined') {
   test('setting properties on Factory results in assertion', function(assert) {
-    let owner = getOwner(this);
+    let { owner } = this;
     let Factory = owner.factoryFor('fruit:apple');
 
     assert.throws(() => {
