@@ -1,17 +1,17 @@
 {
   "name": "ember-factory-for-polyfill",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "1.0.0-alpha",
+  "description": "Provides a basice polyfill for the ember-factory-for feature.",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "me@rwjblue.com",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "git@github.com:rwjblue/ember-factory-for-polyfill.git",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
@@ -48,5 +48,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "main": "index.js"
 }
