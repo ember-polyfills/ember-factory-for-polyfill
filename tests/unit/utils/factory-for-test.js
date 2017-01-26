@@ -3,7 +3,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 const { getOwner, Object: EmberObject } = Ember;
 
-moduleFor('owner.factoryFor tests with ember-test-helpers based owner', {
+moduleFor('factoryFor | ember-test-helpers', {
   integration: true,
 
   beforeEach() {
