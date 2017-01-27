@@ -18,8 +18,8 @@
       }
     };
 
-    if (HAS_NATIVE_PROXY) {
-      Ember.runInDebug(function() {
+    Ember.runInDebug(function() {
+      if (HAS_NATIVE_PROXY) {
         var validator = {
           get: function(obj, prop) {
             if (prop !== 'class' && prop !== 'create') {
@@ -45,8 +45,8 @@
         };
 
         FactoryManager = new Proxy(proxiedManager, validator);
-      });
-    }
+      }
+    });
 
     return FactoryManager;
   }
