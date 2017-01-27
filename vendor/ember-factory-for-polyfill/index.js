@@ -75,7 +75,7 @@
   }
 
   var FactoryForMixin = Ember.Mixin.create({
-    init() {
+    init: function() {
       this._super.apply(this, arguments);
       this[SAFE_LOOKUP_FACTORY_METHOD] = this._lookupFactory;
       this._lookupFactory = deprecatedLookupFactory;
