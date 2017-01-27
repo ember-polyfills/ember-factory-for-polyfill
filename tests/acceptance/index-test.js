@@ -42,6 +42,13 @@ test('factoryFor exposes "raw" .class`', function(assert) {
   assert.ok(instance instanceof this.AppleFactory, 'creating an instance with .class results in `instanceof` match');
 });
 
+test('factoryFor returns undefined when factory is not registered', function(assert) {
+  let { owner } = this;
+  let Factory = owner.factoryFor('fruit:orange');
+
+  assert.equal(Factory, undefined, 'factory is undefined');
+});
+
 if (typeof Proxy !== 'undefined') {
   test('setting properties on Factory results in assertion', function(assert) {
     let { owner } = this;
