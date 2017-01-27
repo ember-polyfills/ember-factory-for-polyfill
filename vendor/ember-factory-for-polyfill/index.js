@@ -1,4 +1,4 @@
-/* globals Ember, Proxy */
+/* globals Ember, Proxy, define */
 (function() {
   'use strict';
 
@@ -49,6 +49,14 @@
     }
 
     return FactoryManager;
+  }
+
+  if (typeof define === 'function') {
+    define('ember-factory-for-polyfill', ['exports'], function(exports) {
+      exports.factoryFor = factoryFor;
+
+      return exports;
+    });
   }
 
   var FactoryForMixin = Ember.Mixin.create({
