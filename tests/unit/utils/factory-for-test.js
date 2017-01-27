@@ -10,6 +10,10 @@ moduleFor('factoryFor | ember-test-helpers', {
     this.AppleFactory = EmberObject.extend();
 
     this.register('fruit:apple', this.AppleFactory);
+  },
+
+  afterEach(assert) {
+    assert.noDeprecationsOccurred();
   }
 });
 
