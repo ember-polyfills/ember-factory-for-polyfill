@@ -4,8 +4,9 @@
 
   var HAS_NATIVE_PROXY = typeof Proxy === 'function';
 
+  var SAFE_LOOKUP_FACTORY_METHOD = '__' + (Date.now()) + '_lookupFactory';
   function factoryFor(fullName) {
-    var factory = this._lookupFactory(fullName);
+    var factory = this[SAFE_LOOKUP_FACTORY_METHOD](fullName);
 
     if (!factory) {
       return;
@@ -51,6 +52,16 @@
     return FactoryManager;
   }
 
+  function deprecatedLookupFactory() {
+    Ember.deprecate(
+      'Using `_lookupFactory` is deprecated. Please use `.factoryFor` instead.',
+      false,
+      { id: 'container-lookupFactory', until: '2.13.0', url: 'TODO' }
+    );
+
+    return this[SAFE_LOOKUP_FACTORY_METHOD].apply(this, arguments);
+  };
+
   if (typeof define === 'function') {
     define('ember-factory-for-polyfill/vendor/ember-factory-for-polyfill/index', ['exports'], function(exports) {
       exports.factoryFor = factoryFor;
@@ -60,6 +71,12 @@
   }
 
   var FactoryForMixin = Ember.Mixin.create({
+    init() {
+      this._super.apply(this, arguments);
+      this[SAFE_LOOKUP_FACTORY_METHOD] = this._lookupFactory;
+      this._lookupFactory = deprecatedLookupFactory;
+    },
+
     factoryFor: factoryFor
   });
 
@@ -77,8 +94,15 @@
       buildInstance: function(_options) {
         var options = _options || {};
         options.factoryFor = factoryFor;
+        // to shape the object properly
+        options[SAFE_LOOKUP_FACTORY_METHOD] = function() {};
 
-        return this._super(options);
+        var instance = this._super(options);
+
+        instance[SAFE_LOOKUP_FACTORY_METHOD] = options._lookupFactory;
+        instance._lookupFactory = deprecatedLookupFactory;
+
+        return instance;
       }
     });
   }
