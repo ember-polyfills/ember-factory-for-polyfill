@@ -67,7 +67,7 @@
   if (Ember.ApplicationInstance) {
     // augment the main application's "owner"
     Ember.ApplicationInstance.reopen(FactoryForMixin);
-  } else {
+  } else if (Ember.Application.prototype.buildInstance){
     // in Ember < 2.8 the Ember.ApplicationInstance is not
     // exposed globally, so we have to monkey patch the
     // `Ember.Application#buildInstance` method to ensure
