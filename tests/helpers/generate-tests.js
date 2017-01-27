@@ -23,16 +23,12 @@ export default function(test) {
     });
   });
 
-  test('calling _lookupFactory is deprecated but functional', function(assert) {
-    assert.deprecations(() => {
-      let { owner } = this;
-      let Factory = owner._lookupFactory('fruit:apple');
-      let instance = Factory.create();
+  test('calling _lookupFactory is not deprecated but functional', function(assert) {
+    let { owner } = this;
+    let Factory = owner._lookupFactory('fruit:apple');
+    let instance = Factory.create();
 
-      assert.equal(getOwner(instance), owner, 'owner of instace created from factoryFor matches environment owner');
-    }, [
-      'Using `_lookupFactory` is deprecated. Please use `.factoryFor` instead.'
-    ]);
+    assert.equal(getOwner(instance), owner, 'owner of instace created from factoryFor matches environment owner');
   });
 
   test('factoryFor returns undefined when factory is not registered', function(assert) {
