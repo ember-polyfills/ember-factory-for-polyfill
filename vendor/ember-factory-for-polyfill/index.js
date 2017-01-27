@@ -52,7 +52,7 @@
   }
 
   if (typeof define === 'function') {
-    define('ember-factory-for-polyfill', ['exports'], function(exports) {
+    define('ember-factory-for-polyfill/vendor/ember-factory-for-polyfill/index', ['exports'], function(exports) {
       exports.factoryFor = factoryFor;
 
       return exports;
