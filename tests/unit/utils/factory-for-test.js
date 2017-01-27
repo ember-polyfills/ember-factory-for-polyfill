@@ -21,6 +21,13 @@ test('factoryFor + .create results in objects with `owner`', function(assert) {
   assert.equal(getOwner(instance), owner, 'owner of instace created from factoryFor matches environment owner');
 });
 
+test('returns undefined if factory does not exist', function(assert) {
+  let owner = getOwner(this);
+  let Factory = owner.factoryFor('fruit:orange');
+
+  assert.equal(Factory, undefined, 'factory is undefined');
+});
+
 test('factoryFor exposes "raw" .class`', function(assert) {
   let owner = getOwner(this);
   let Factory = owner.factoryFor('fruit:apple');

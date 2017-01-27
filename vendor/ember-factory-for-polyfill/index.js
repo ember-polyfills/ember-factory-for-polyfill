@@ -5,9 +5,14 @@
   var HAS_NATIVE_PROXY = typeof Proxy === 'function';
 
   function factoryFor(fullName) {
-    var FactoryManager = {
-      class: this._lookupFactory(fullName),
+    var factory = this._lookupFactory(fullName);
 
+    if (!factory) {
+      return;
+    }
+
+    var FactoryManager = {
+      class: factory,
       create: function() {
         return this.class.create.apply(this.class, arguments);
       }
