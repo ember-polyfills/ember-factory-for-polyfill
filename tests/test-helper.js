@@ -17,20 +17,22 @@ QUnit.testStart(function() {
   deprecations = [];
 });
 
-QUnit.assert.noDeprecationsOccurred = function() {
-  this.pushResult({
-    result: deprecations.length === 0,
-    actual: deprecations,
-    expected: [],
-    message: 'Expected no deprecations during test.'
-  });
+QUnit.assert.noDeprecations = function(callback) {
+  let originalDeprecations = deprecations;
+  deprecations = [];
+
+  callback();
+  this.deepEqual(deprecations, [], 'Expected no deprecations during test.');
+
+  deprecations = originalDeprecations;
 };
 
-QUnit.assert.deprecationsOccurred = function(deprecationsExpected) {
-  this.pushResult({
-    result: deprecations.length === deprecationsExpected.length,
-    actual: deprecations,
-    expected: deprecationsExpected,
-    message: 'Expected deprecations during test.'
-  });
+QUnit.assert.deprecations = function(callback, expectedDeprecations) {
+  let originalDeprecations = deprecations;
+  deprecations = [];
+
+  callback();
+  this.deepEqual(deprecations, expectedDeprecations, 'Expected deprecations during test.');
+
+  deprecations = originalDeprecations;
 };
