@@ -64,7 +64,11 @@
 
   if (typeof define === 'function') {
     define('ember-factory-for-polyfill/vendor/ember-factory-for-polyfill/index', ['exports'], function(exports) {
-      exports.factoryFor = factoryFor;
+      exports._factoryFor = factoryFor;
+
+      exports._updateSafeLookupFactoryMethod = function(methodName) {
+        SAFE_LOOKUP_FACTORY_METHOD = methodName;
+      };
 
       return exports;
     });
