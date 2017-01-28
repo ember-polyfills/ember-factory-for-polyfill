@@ -1,6 +1,6 @@
 {
   "name": "ember-factory-for-polyfill",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Provides a basice polyfill for the ember-factory-for feature.",
   "keywords": [
     "ember-addon"
