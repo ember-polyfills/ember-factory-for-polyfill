@@ -38,6 +38,19 @@ place for consumers of your addon is perfectly normal.  When the addon no longer
 versions older than 2.12, we recommend removing `ember-factory-for-polyfill` from your `package.json`
 and doing a major version bump.
 
+## Compatibility
+
+This addon is tested against quite a few past Ember versions. Check `config/ember-try.js` for the current list, but
+the list of supported Ember versions at the time of authoring was:
+
+* 2.3
+* 2.4
+* 2.8
+* 2.12
+* 2.13 (canary at the time)
+
+For compatibility with older Ember versions prior to 2.3, please use [ember-getowner-polyfill](https://github.com/rwjblue/ember-getowner-polyfill) instead.
+
 ## Addon Maintenance
 
 ### Installation
