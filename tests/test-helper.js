@@ -9,6 +9,9 @@ setResolver(resolver);
 
 let deprecations;
 Ember.Debug.registerDeprecationHandler((message, options, next) => {
+  // in case a deprecation is issued before a test is started
+  if (!deprecations) { deprecations = []; }
+
   deprecations.push(message);
   next(message, options);
 });

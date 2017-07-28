@@ -47,7 +47,7 @@ the list of supported Ember versions at the time of authoring was:
 * 2.4
 * 2.8
 * 2.12
-* 2.13 (canary at the time)
+* 2.16 (canary at the time)
 
 For compatibility with older Ember versions prior to 2.3, please use [ember-getowner-polyfill](https://github.com/rwjblue/ember-getowner-polyfill) instead.
 

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 const { getOwner } = Ember;
 
 export default function(test) {
@@ -23,13 +24,16 @@ export default function(test) {
     });
   });
 
-  test('calling _lookupFactory is not deprecated but functional', function(assert) {
-    let { owner } = this;
-    let Factory = owner._lookupFactory('fruit:apple');
-    let instance = Factory.create();
+  // Ember 2.15 and higher do not have `owner._lookupFactory`
+  if (!hasEmberVersion(2,15)) {
+    test('calling _lookupFactory is not deprecated but functional', function(assert) {
+      let { owner } = this;
+      let Factory = owner._lookupFactory('fruit:apple');
+      let instance = Factory.create();
 
-    assert.equal(getOwner(instance), owner, 'owner of instace created from factoryFor matches environment owner');
-  });
+      assert.equal(getOwner(instance), owner, 'owner of instace created from factoryFor matches environment owner');
+    });
+  }
 
   test('factoryFor returns undefined when factory is not registered', function(assert) {
     assert.noDeprecations(() => {
