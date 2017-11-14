@@ -58,7 +58,6 @@ For compatibility with older Ember versions prior to 2.3, please use [ember-geto
 * `git clone <repository-url>` this repository
 * `cd ember-factory-for-polyfill`
 * `npm install`
-* `bower install`
 
 ### Running
 
